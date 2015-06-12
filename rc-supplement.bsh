@@ -1,0 +1,35 @@
+#!/bin/bash
+#author: Jeffrey DeYoung
+#To Use: add to your shells .zshrc or .bashrc file. It is recommended that you add this to the top of the file so your personal and OS aliases will take priority.
+#Ex: source ~/projects/linuxscripts/shellhelpers/rc-supplement.bsh
+#Feel free to add your own info below and submit a pull request, however, take care not to break any default functionality and comment your commands
+
+#OS check
+os=`uname`
+platform='linux' #default to linux unless told otherwise
+if [[ "$os" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$os" == "darwin"* ]]; then
+   platform='mac'
+elif [[ "$os" == "cygwin" ]]; then
+   platform='windows'
+fi
+
+#opens your current directory in file browser
+if [[ $platform == 'linux' ]]; then
+    alias browser="nautilus ."
+elif [[ $platform == 'mac' ]]; then
+    alias browser="open ."
+elif [[ $platform == 'windows' ]]; then
+    alias browser="explorer ."
+fi
+
+#long list files with human readable units
+alias ll="ls -lh"
+#long list files with human readable units and show hidden files
+alias la="ls -lha"
+#long list files with human readable units and show hidden files (alt)
+alias lla="ls -lha"
+
+#makes a directory, then cds into it
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
