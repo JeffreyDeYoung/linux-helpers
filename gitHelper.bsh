@@ -1,0 +1,40 @@
+#!/bin/bash
+#author: Jeffrey DeYoung
+#to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linuxscripts/gitscripts/gitHelper.bsh
+
+function gcommit(){
+        git commit -a -m "$1"
+}
+
+function getGitBranch(){
+        git status | sed -n "1p" | awk -F' ' '{ print $3 }'
+}
+
+function gitUpdateFromMaster(){
+        current=$(getGitBranch)
+        echo "checking out master from $current"
+        git checkout master
+        git pull --rebase
+        echo "checking out $current from master"
+        git checkout $current
+        git rebase master
+}
+
+function gitPushToMaster(){
+        current=$(getGitBranch)
+        echo "checking out master from $current"
+        git checkout master
+        echo "merging branch $current to master"
+        git merge work
+        git push
+        echo "checking out $current from master"
+        git checkout $current
+}
+
+#git update from master
+alias gufm="gitUpdateFromMaster"
+#git push to master
+alias gptm="gitPushToMaster"
+#git add and commit
+alias gac="git add -A; gcommit"
+
