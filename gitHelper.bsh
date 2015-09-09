@@ -31,10 +31,16 @@ function gitPushToMaster(){
         git checkout $current
 }
 
+function commitAndPushToCurrentBranch(){ 
+    gcommit $1
+    git push
+}
+
 #git update from master
 alias gufm="gitUpdateFromMaster"
 #git push to master
 alias gptm="gitPushToMaster"
 #git add and commit
 alias gac="git add -A; gcommit"
-
+#git add, commit, and push
+alias gacp="commitAndPushToCurrentBranch"
