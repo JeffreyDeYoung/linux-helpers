@@ -17,7 +17,7 @@ function codeFormatJava()
 	#echo $called
 	DIR=$(dirname ${(%):-%x})
 	#echo $DIR
-	$ECLIPSE_BIN -nosplash -application org.eclipse.jdt.core.JavaCodeFormatter -config /home/jeffrey/workspace/test/.settings/org.eclipse.jdt.core.prefs .
+	$ECLIPSE_BIN -nosplash -application org.eclipse.jdt.core.JavaCodeFormatter -config $DIR/org.eclipse.jdt.core.prefs .
 }
 
 #handy alias for calling this
