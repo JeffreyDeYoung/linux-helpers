@@ -44,3 +44,5 @@ alias gptm="gitPushToMaster"
 alias gac="git add -A; gcommit"
 #git add, commit, and push
 alias gacp="commitAndPushToCurrentBranch"
+#git checkout master and pull
+alias gcm="git checkout master && git pull"
