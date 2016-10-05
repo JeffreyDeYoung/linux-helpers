@@ -46,7 +46,8 @@ while read -r line ; do
 	printf "\n"
 done <<<$processes
 #echo $pids
-echo "Which process do you wish to kill? (1-$process_count)"
+echo "Which process do you wish to kill? (1-$process_count) (ctrl + c to cancel)"
 read index
 echo "Killing process id: " $pids[$index]
 kill -9 $pids[$index]
+echo "Killed."
