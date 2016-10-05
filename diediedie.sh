@@ -27,18 +27,19 @@ this_pid=$$
 #ugly
 processes=`ps -ef | grep "$to_kill" | grep -v "grep" | grep -v "diediedie" | grep -v "$this_pid"`
 #echo $processes
-process_count=`echo $processes | wc -l`
-if [ $process_count -eq 1 ]; then
+process_count=`echo -n $processes | wc -w`
+#echo $process_count
+if [ $process_count -eq 0 ]; then
 	echo "There is no process by that name."
 	exit 1
 fi
 
 pids=()
 #pNames=()
-counter=1;
+counter=0;
 while read -r line ; do
-	echo "$counter.) $line"
 	((counter++))
+	echo "$counter.) $line"
 	pid=`echo $line | awk '{print $2}'`
 	pids+=($pid)
 	#pName=`echo $line | awk '{print $8}'`
@@ -46,7 +47,7 @@ while read -r line ; do
 	printf "\n"
 done <<<$processes
 #echo $pids
-echo "Which process do you wish to kill? (1-$process_count) (ctrl + c to cancel)"
+echo "Which process do you wish to kill? (1-$counter) (ctrl + c to cancel)"
 read index
 echo "Killing process id: " $pids[$index]
 kill -9 $pids[$index]
