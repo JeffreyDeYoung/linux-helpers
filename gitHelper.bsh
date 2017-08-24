@@ -3,37 +3,68 @@
 #to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linuxscripts/gitscripts/gitHelper.bsh
 
 function gcommit(){
-        git commit -a -m "$1"
+    git commit -a -m "$1"
 }
 
 function getGitBranch(){
-        git status | sed -n "1p" | awk -F' ' '{ print $3 }'
+    git status | sed -n "1p" | awk -F' ' '{ print $3 }'
 }
 
 function gitUpdateFromMaster(){
-        current=$(getGitBranch)
-        echo "checking out master from $current"
-        git checkout master
-        git pull
-        echo "checking out $current from master"
-        git checkout $current
-        git merge master
+    current=$(getGitBranch)
+    echo "checking out master from $current"
+    git checkout master
+    git pull
+    echo "checking out $current from master"
+    git checkout $current
+    git merge master
 }
 
 function gitPushToMaster(){
-        current=$(getGitBranch)
-        echo "checking out master from $current"
-        git checkout master
-        echo "merging branch $current to master"
-        git merge work
-        git push
-        echo "checking out $current from master"
-        git checkout $current
+    current=$(getGitBranch)
+    echo "checking out master from $current"
+    git checkout master
+    echo "merging branch $current to master"
+    git merge work
+    git push
+    echo "checking out $current from master"
+    git checkout $current
 }
 
 function commitAndPushToCurrentBranch(){ 
     gcommit $1
     git push
+}
+
+function getCheckoutMasterAndPull(){
+	echo "checking out master and pulling"
+	git checkout master && git pull
+}
+
+#java start new work -- builds, checks out a new branch, pushes to origin, upticks, and does an inital commit
+#Note: Requires the javaMinorVersionUptick script to be sourced
+function javaStartNewWork(){
+	echo "Starting java work on a new branch $1"
+	getCheckoutMasterAndPull
+	#make sure the current master builds so we don't start off on a bad foot with our new branch
+	mvn clean install
+	if [ $? -eq 0 ]
+	then
+		echo "Master Build Success! Checking out new branch."
+		git checkout -b $1
+		git push -u origin $1
+		javaMinorVersionUptick
+		gcommit "Start of work on $1 -- uptick only."
+	else
+		echo "Could not build master; please ensure that works prior to starting new work."
+	fi
+}
+
+function startNewWork(){
+	echo "Starting work on a new branch $1"
+	getCheckoutMasterAndPull
+	git checkout -b $1
+	git push -u origin $1
 }
 
 #git update from master
@@ -45,4 +76,8 @@ alias gac="git add -A; gcommit"
 #git add, commit, and push
 alias gacp="commitAndPushToCurrentBranch"
 #git checkout master and pull
-alias gcm="git checkout master && git pull"
+alias gcm="getCheckoutMasterAndPull"
+#java start new work -- builds, checks out a new branch, pushes to origin, upticks, and does an inital commit -- must pass in a new branch name
+alias jsnw="javaStartNewWork"
+#start new work -- must pass in a new branch name
+alias snw="startNewWork"
