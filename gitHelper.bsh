@@ -3,7 +3,7 @@
 #to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linuxscripts/gitscripts/gitHelper.bsh
 
 function gcommit(){
-    git commit -a -m "$1"
+    git commit -a -m "$(getGitBranch) -- $1"
 }
 
 function getGitBranch(){
@@ -54,7 +54,7 @@ function javaStartNewWork(){
 		git checkout -b $1
 		git push -u origin $1
 		javaMinorVersionUptick
-		gcommit "Start of work on $1 -- uptick only."
+		git commit -a -m "Start of work on $1 -- uptick only."
 	else
 		echo "Could not build master; please ensure that works prior to starting new work."
 	fi
