@@ -33,3 +33,10 @@ alias lla="ls -lha"
 
 #makes a directory, then cds into it
 function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+#answer frustration with something diverting
+alias arg="fortune | cowsay"
+alias argh="fortune | cowsay"
+alias dangit="fortune | cowsay"
+alias dang="fortune | cowsay"
+
