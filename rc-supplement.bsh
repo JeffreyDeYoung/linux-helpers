@@ -1,7 +1,7 @@
 #!/bin/bash
 #author: Jeffrey DeYoung
 #To Use: add to your shells .zshrc or .bashrc file. It is recommended that you add this to the top of the file so your personal and OS aliases will take priority.
-#Ex: source ~/projects/linuxscripts/shellhelpers/rc-supplement.bsh
+#Ex: source ~/projects/linux-helpers/rc-supplement.bsh
 #Feel free to add your own info below and submit a pull request, however, take care not to break any default functionality and comment your commands
 
 #OS check
