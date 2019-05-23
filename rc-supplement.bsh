@@ -40,3 +40,5 @@ alias argh="fortune | cowsay"
 alias dangit="fortune | cowsay"
 alias dang="fortune | cowsay"
 
+#maven shortcuts
+alias mci="mvn clean install"
