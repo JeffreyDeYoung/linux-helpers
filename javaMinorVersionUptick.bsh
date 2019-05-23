@@ -1,6 +1,6 @@
 #!/bin/bash
 #author: Jeffrey DeYoung
-#to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linuxscripts/javaMinorVersionUptick.bsh
+#to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linux-helpers/javaMinorVersionUptick.bsh
 
 function javaMinorVersionUptick()
 {

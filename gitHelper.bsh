@@ -1,6 +1,6 @@
 #!/bin/bash
 #author: Jeffrey DeYoung
-#to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linuxscripts/gitscripts/gitHelper.bsh
+#to use, add to your shells .zshrc or .bashrc file. Ex: source ~/projects/linux-helpers/gitHelper.bsh
 
 #git adds all files, then commits them;
 #the comment for the commit will be the name of the git branch you are currently on
