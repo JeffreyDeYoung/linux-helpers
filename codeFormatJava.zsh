@@ -7,7 +7,7 @@
 #To use, add to your shells .zshrc or .bashrc file.
 #Ex: 
 #ECLIPSE_BIN=~/eclipse/java-neon/eclipse/eclipse
-#source ~/projects/linuxscripts/codeFormatJava.zsh
+#source ~/projects/linux-helpers/codeFormatJava.zsh
 
 
 function codeFormatJava()

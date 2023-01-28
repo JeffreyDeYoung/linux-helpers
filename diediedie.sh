@@ -6,7 +6,7 @@
 #For when you just want to kill a process; likely to be used in anger
 # (Note for the internet: I am not an angry person; name was suggested by coworker)
 #To use, add to your shells .zshrc or .bashrc file:
-#  alias diediedie="~/path/to/diediedie.sh"
+#  alias diediedie="~/projects/linux-helpers/diediedie.sh"
 
 
 usage="$(basename "$0") [-h] [process-to-kill] -- program to (safely) kill processes with no doubt that they will die.
