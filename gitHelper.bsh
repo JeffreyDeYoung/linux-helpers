@@ -15,64 +15,64 @@ function getGitBranch(){
     git status | sed -n "1p" | awk -F' ' '{ print $3 }'
 }
 
-#checks out master, pulls, returns you to your branch, then merges master to your branch
-function gitUpdateFromMaster(){
+#checks out main, pulls, returns you to your branch, then merges main to your branch
+function gitUpdateFromMain(){
     current=$(getGitBranch)
-    echo "checking out master from $current"
-    git checkout master
+    echo "checking out main from $current"
+    git checkout main
     git pull
-    echo "checking out $current from master"
+    echo "checking out $current from main"
     git checkout $current
-    git merge master
+    git merge main
 }
 
-#takes your current branch, merges it to master, then pushes
-function gitPushToMaster(){
+#takes your current branch, merges it to main, then pushes
+function gitPushToMain(){
     current=$(getGitBranch)
-    echo "checking out master from $current"
-    git checkout master
-    echo "merging branch $current to master"
+    echo "checking out main from $current"
+    git checkout main
+    echo "merging branch $current to main"
     git merge work
     git push
-    echo "checking out $current from master"
+    echo "checking out $current from main"
     git checkout $current
 }
 
 #commits all current files with the comment passed in; pushes to remote
-function commitAndPushToCurrentBranch(){ 
+function commitAndPushToCurrentBranch(){
     gcommit $1
     git push
 }
 
-#checks out master and pulls latest
-function getCheckoutMasterAndPull(){
-	echo "checking out master and pulling"
-	git checkout master && git pull
+#checks out main and pulls latest
+function getCheckoutMainAndPull(){
+	echo "checking out main and pulling"
+	git checkout main && git pull
 }
 
 #java start new work -- builds, checks out a new branch, pushes to origin, upticks, and does an inital commit
 #Note: Requires the javaMinorVersionUptick script to be sourced
 function javaStartNewWork(){
 	echo "Starting java work on a new branch $1"
-	getCheckoutMasterAndPull
-	#make sure the current master builds so we don't start off on a bad foot with our new branch
+	getCheckoutMainAndPull
+	#make sure the current main builds so we don't start off on a bad foot with our new branch
 	mvn clean install
 	if [ $? -eq 0 ]
 	then
-		echo "Master Build Success! Checking out new branch."
+		echo "Main Build Success! Checking out new branch."
 		git checkout -b $1
 		git push -u origin $1
 		javaMinorVersionUptick
 		git commit -a -m "Start of work on $1 -- uptick only."
 	else
-		echo "Could not build master; please ensure that works prior to starting new work."
+		echo "Could not build main; please ensure that works prior to starting new work."
 	fi
 }
 
 #starts a new branch with the passed in name, and pushes it to create it on origin
 function startNewWork(){
 	echo "Starting work on a new branch $1"
-	getCheckoutMasterAndPull
+	getCheckoutMainAndPull
 	git checkout -b $1
 	git push -u origin $1
 }
@@ -83,28 +83,28 @@ function pullAll(){
     for d in ./*/ ; do (cd "$d" && echo "Pulling dir $d" && git pull); done
 }
 
-#goes it to all top-level git projects in the current dir, checks out master and pulls (leaving the project on master)
-function pullFromMasterAll(){
-    echo "Updating all top-level directories to master."
-    for d in ./*/ ; do (cd "$d" && echo "Pulling dir $d" && getCheckoutMasterAndPull); done
+#goes it to all top-level git projects in the current dir, checks out main and pulls (leaving the project on main)
+function pullFromMainAll(){
+    echo "Updating all top-level directories to main."
+    for d in ./*/ ; do (cd "$d" && echo "Pulling dir $d" && getCheckoutMainAndPull); done
 }
 
-#git update from master
-alias gufm="gitUpdateFromMaster"
-#git push to master
-alias gptm="gitPushToMaster"
+#git update from main
+alias gufm="gitUpdateFromMain"
+#git push to main
+alias gptm="gitPushToMain"
 #git add and commit
 alias gac="git add -A; gcommit"
 #git add, commit, and push
 alias gacp="commitAndPushToCurrentBranch"
-#git checkout master and pull
-alias gcm="getCheckoutMasterAndPull"
+#git checkout main and pull
+alias gcm="getCheckoutMainAndPull"
 #git pull (i'm lazy, ok?)
 alias gp="git pull"
 #git pull all
 alias gpa="pullAll"
-#git pull all from master
-alias gpam="pullFromMasterAll"
+#git pull all from main
+alias gpam="pullFromMainAll"
 
 #java start new work -- builds, checks out a new branch, pushes to origin, upticks, and does an inital commit -- must pass in a new branch name
 alias jsnw="javaStartNewWork"
